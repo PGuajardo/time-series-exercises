@@ -21,7 +21,7 @@ def prep_store():
                         how="inner",
                         left_on="item",
                         right_on="item_id")
-                        
+
     # Change sale_date to a date time and then set as index
     everything.sale_date = pd.to_datetime(everything.sale_date, format='%a, %d %b %Y %H:%M:%S %Z')
     everything = everything.set_index('sale_date').sort_index()
@@ -50,3 +50,10 @@ def prep_electricity():
     electricity_consumption = electricity_consumption.fillna(0)
 
     return electricity_consumption
+
+# Human split by year
+def split_store(df):
+    train = df[:'2016'] # includes 2016
+    test = df['2017']
+
+    return train, test
